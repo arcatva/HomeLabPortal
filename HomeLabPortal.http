@@ -1,0 +1,6 @@
+@HomeLabPortal_HostAddress = http://localhost:5285
+
+GET {{HomeLabPortal_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
