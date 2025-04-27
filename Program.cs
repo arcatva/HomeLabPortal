@@ -11,17 +11,13 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         if (builder.Environment.IsDevelopment()) builder.Services.AddOpenApi();
-
-        builder.Services.AddSingleton(
-            () => GrpcChannel.ForAddress("https://localhost:5001")
-        );
-
-        builder.Services.AddGrpcClient<Spdk.SpdkClient>();
+        builder.Services.AddGrpcClient<Spdk.SpdkClient>(options =>
+        {
+            options.Address = new Uri(builder.Configuration["GRPC_URL"]!);
+        });
 
         builder.Services.AddScoped<SpdkService>();
-
         builder.Services.AddControllers();
-
         var app = builder.Build();
 
         if (app.Environment.IsDevelopment())
@@ -32,7 +28,6 @@ public class Program
         }
 
         app.MapControllers();
-
         app.Run();
     }
 }

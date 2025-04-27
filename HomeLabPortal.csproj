@@ -19,6 +19,7 @@
     <ItemGroup>
         <Folder Include="Data\"/>
         <Folder Include="Repositories\"/>
+        <Protobuf Include="Protos\spdk.proto" GrpcServices="Client"/>
     </ItemGroup>
 
 </Project>
