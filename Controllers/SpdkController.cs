@@ -1,10 +1,10 @@
-﻿using HomeLabPortal.Services;
+﻿using HomeLabDashboard.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HomeLabPortal.Controllers;
+namespace HomeLabDashboard.Controllers;
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("api/v1/dashboard/[controller]")]
 public class SpdkController(SpdkService spdkService)
 {
     [HttpGet("spdk_version")]

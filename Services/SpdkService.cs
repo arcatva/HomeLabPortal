@@ -1,4 +1,4 @@
-﻿namespace HomeLabPortal.Services;
+﻿namespace HomeLabDashboard.Services;
 
 public class SpdkService(Spdk.SpdkClient spdkClient)
 {

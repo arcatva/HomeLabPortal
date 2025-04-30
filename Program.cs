@@ -1,8 +1,8 @@
 using Grpc.Net.Client;
-using HomeLabPortal.Services;
+using HomeLabDashboard.Services;
 using Scalar.AspNetCore;
 
-namespace HomeLabPortal;
+namespace HomeLabDashboard;
 
 public class Program
 {
@@ -10,7 +10,22 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        if (builder.Environment.IsDevelopment()) builder.Services.AddOpenApi();
+        if (builder.Environment.IsDevelopment())
+        {
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("MyAllowSpecificOrigins",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:5173") // Allow frontend origin
+                            .AllowAnyHeader() // Or specify allowed headers
+                            .AllowAnyMethod(); // Or specify allowed methods
+                        // policy.AllowCredentials(); // If needed
+                    });
+            });
+            builder.Services.AddOpenApi();
+        }
+
         builder.Services.AddGrpcClient<Spdk.SpdkClient>(options =>
         {
             options.Address = new Uri(builder.Configuration["GRPC_URL"]!);
@@ -25,6 +40,7 @@ public class Program
             app.MapGet("/", () => "Hello world!");
             app.MapScalarApiReference();
             app.MapOpenApi();
+            app.UseCors("MyAllowSpecificOrigins");
         }
 
         app.MapControllers();
