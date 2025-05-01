@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HomeLabDashboard.Controllers;
 
 [ApiController]
-[Route("api/v1/dashboard/[controller]")]
+[Route("api/v1/[controller]")]
 public class SpdkController(SpdkService spdkService)
 {
     [HttpGet("spdk_version")]

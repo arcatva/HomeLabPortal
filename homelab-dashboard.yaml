@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: homelab-dashboard
+spec:
+  selector:
+    app: homelab-dashboard
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: ClusterIP
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homelab-dashboard
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: homelab-dashboard
+  template:
+    metadata:
+      labels:
+        app: homelab-dashboard
+    spec:
+      containers:
+        - name: homelab-dashboard
+          image: ghcr.io/arcatva/homelab-dashboard:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: GRPC_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: spdk-grpc-config
+                  key: GRPC_URL
