@@ -43,6 +43,8 @@ public class Program
             app.UseCors("MyAllowSpecificOrigins");
         }
 
+        app.UseStaticFiles();
+        app.MapFallbackToFile("index.html");
         app.UsePathBase("/dashboard");
         app.MapControllers();
         app.Run();

@@ -1,3 +1,6 @@
 [submodule "Protos"]
 	path = Protos
 	url = https://github.com/arcatva/spdk_protos.git
+[submodule "homelab-dashboard-spa"]
+	path = homelab-dashboard-spa
+	url = https://github.com/arcatva/homelab-dashboard-spa
